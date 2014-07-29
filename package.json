@@ -1,0 +1,32 @@
+{
+  "name": "browserify-tutorial",
+  "version": "0.0.0",
+  "description": "A browserify tutorial seed",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Josh G",
+  "license": "ISC",
+  "browserify": {
+    "transform": [
+      "coffeeify"
+    ]
+  },
+  "devDependencies": {
+    "gulp": "^3.8.6",
+    "vinyl-source-stream": "^0.1.1",
+    "gulp-sass": "^0.7.2",
+    "gulp-ruby-sass": "^0.7.0",
+    "gulp-uglify": "^0.3.1",
+    "gulp-streamify": "0.0.5",
+    "browser-sync": "^1.3.0",
+    "watchify": "^1.0.1",
+    "browserify": "^5.9.1",
+    "coffeeify": "^0.7.0"
+  },
+  "dependencies": {
+    "lodash": "^2.4.1",
+    "jquery": "^2.1.1"
+  }
+}
