@@ -1,35 +1,30 @@
-
-var gulp = require('gulp');
 var browserify = require('browserify');
 var source = require('vinyl-source-stream');
 var watchify = require('watchify');
 var browserSync = require('browser-sync');
+var gulp = require('gulp');
+var gutil = require('gulp-util');
 
 var paths = {
-  scripts : ['./client/scripts/*.js', './client/scripts/**/*.js', './client/scripts/**/*.coffee']
+  scripts : ['./client/scripts/*.js', './client/scripts/**/*.js']
 };
 
 gulp.task('browserify', function(){
 
-  var bundleMethod = global.isWatching ? watchify : browserify;
-
-  var bundler = bundleMethod({
-    entries: ['./client/scripts/main.js'],
-    extensions: ['.coffee'],
-    debug: true
-  });
+  var bundler = watchify(browserify('./client/scripts/app.js', watchify.args));
 
   var bundle  = function() {
     return bundler
       .bundle()
+      .on('error', function(e) {
+        gutil.log('Browserify Error', e);
+      })
       .pipe(source('bundle.js'))
       .pipe(gulp.dest('./client/build'))
       .pipe(browserSync.reload({stream: true, once: true}));
   };
 
-  if (global.isWatching) {
-    bundler.on('update', bundle); 
-  }
+  bundler.on('update', bundle)
 
   return bundle();
 });
@@ -49,5 +44,4 @@ gulp.task('watch', function(){
 });
 
 // use default task to launch BrowserSync and watch JS files
-gulp.task('default', ['browser-sync', 'browserify', 'watch']);
-
+gulp.task('default', ['browser-sync','browserify', 'watch']);
