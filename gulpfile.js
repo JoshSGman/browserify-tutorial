@@ -11,7 +11,7 @@ var paths = {
 
 gulp.task('browserify', function(){
 
-  var bundler = watchify(browserify('./client/scripts/app.js', watchify.args));
+  var bundler = watchify(browserify('./client/scripts/main.js', watchify.args));
 
   var bundle  = function() {
     return bundler
